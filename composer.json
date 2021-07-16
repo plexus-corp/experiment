@@ -1,0 +1,22 @@
+{
+    "name": "plexus-corp/experiment",
+    "description": "Experimental plugin",
+    "require": {
+        "php": ">=7.2",
+        "cakephp/cakephp": "~4.1"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mike Tallroth",
+            "email": "mike.tallroth@plexus.com"
+        }
+    ],
+    "type": "cakephp-plugin",
+    "autoload": {
+        "psr-4": {
+            "PlexusCorp\\Experiment\\": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
