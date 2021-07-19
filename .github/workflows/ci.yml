@@ -7,15 +7,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
-    - uses: actions/checkout@v2
-      with:
-        repository: 'cakephp/cakephp'
-        ref: 'master'
-        path: 'vendor/cakephp/cakephp'
-    - name: List the contents
-      run: ls -R .
-    - name: Show php info
-      run: php -i
     - name: Run composer
-      run: composer create-project cakephp/app:4.1.0 test_app
+      run: |
+        composer create-project cakephp/app:4.1.0 test_app
+        cd test_app
+        bin/cake
