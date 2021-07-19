@@ -15,3 +15,5 @@ jobs:
         path: 'vendor/cakephp/cakephp'
     - name: List the contents
       run: ls -R .
+    - name: Show php info
+      run: php -i
