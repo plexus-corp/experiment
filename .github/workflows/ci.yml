@@ -17,3 +17,5 @@ jobs:
       run: ls -R .
     - name: Show php info
       run: php -i
+    - name: Run composer
+      run: composer --help
