@@ -18,4 +18,4 @@ jobs:
     - name: Show php info
       run: php -i
     - name: Run composer
-      run: composer --help
+      run: composer create-project cakephp/app:4.1.0 test_app
