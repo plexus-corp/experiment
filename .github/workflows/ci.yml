@@ -11,7 +11,11 @@ jobs:
       with:
         repository: 'cakephp/app'
         ref: '4.1.0'
+    - name: show contents
+      run: ls -R
     - uses: actions/checkout@v1
+    - name: show contents
+      run: ls -R
     - name: Run composer
       run: |
         composer install
