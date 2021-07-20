@@ -9,6 +9,5 @@ jobs:
     steps:
     - name: Run composer
       run: |
-        composer create-project cakephp/app:4.1.0 test_app
-        cd test_app
+        composer install
         bin/cake
