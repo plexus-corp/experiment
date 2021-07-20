@@ -18,5 +18,10 @@
             "PlexusCorp\\Experiment\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "PlexusCorp\\Test\\": "tests/",
+        }
+    },
     "minimum-stability": "dev"
 }
