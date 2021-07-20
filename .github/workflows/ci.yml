@@ -13,10 +13,15 @@ jobs:
         ref: '4.1.0'
     - name: show contents
       run: ls -R
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
+        path: 'plugins'
     - name: show contents
       run: ls -R
-    - name: Run composer
+    - name: Copy target up to current dir
       run: |
-        composer install
-        bin/cake
+        cp -R plugins .
+        rm -rf plugins/*
+    - name: Run composer
+      run: composer install
+    - name: Display console commands
+      run: bin/cake
