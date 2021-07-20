@@ -12,15 +12,15 @@ jobs:
         repository: 'cakephp/app'
         ref: '4.1.0'
     - name: show contents
-      run: ls -R
+      run: ls -Rla
     - uses: actions/checkout@v2
       with:
         path: 'plugins'
     - name: show contents
-      run: ls -R
+      run: ls -Rla
     - name: Copy target up to current dir
       run: |
-        cp -R plugins .
+        cp -Ra plugins/* .
         rm -rf plugins/*
     - name: Run composer
       run: composer install
