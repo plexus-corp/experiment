@@ -1,13 +1,14 @@
 <?php
 
-namespace PlexusCorp\Test\TestCase\Lib;
+namespace PlexusCorp\Tests\TestCase\Lib;
 
 use PlexusCorp\Experiment\Lib\Experiment;
+use Cake\TestSuite\TestCase;
 
 class ExperimentTest extends TestCase
 {
 
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
         $this->Experiment = new Experiment();
@@ -16,7 +17,7 @@ class ExperimentTest extends TestCase
     public function testAdd10()
     {
         $result = $this->Experiment->add10(1);
-        $this->assertEqual(11, $result);
+        $this->assertEquals(11, $result);
     }
 
 }
