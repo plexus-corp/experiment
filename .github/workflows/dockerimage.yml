@@ -1,0 +1,17 @@
+name: Docker Image Test Suite
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Get the version
+      id: vars
+      run: echo ::set-output name=tag::$(echo ${GITHUB_REF:10})
+    - name: Build the tagged Docker image
+      run: docker build . --file Dockerfile --target composer-install-stage --tag plexus-corp/experiment:${{steps.vars.outputs.tag}}
