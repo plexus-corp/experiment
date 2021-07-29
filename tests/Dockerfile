@@ -1,45 +1,27 @@
-# Start multi-stage build with composer image
-ARG COMPOSER_IMAGE_TAG=2
-ARG BASE_IMAGE_TAG=7.2-apache
-FROM composer:${COMPOSER_IMAGE_TAG} AS composer-init-stage
+# Start test build with image containing composer
+FROM plexuscorp/phpunit-composer:latest AS test
 
-
-# Get dependencies using Composer
-FROM php:${BASE_IMAGE_TAG} AS composer-install-stage
-
-ARG COMPOSER_INSTALL_ARGS="--no-dev"
 WORKDIR /var/www/html/experiment
-COPY . ./
-COPY --from=composer-init-stage /usr/bin/composer /usr/bin/composer
-RUN apt-get update \
-  && DEBIAN_FRONTEND=noninteractive apt-get install -y \
-    libicu-dev \
-    unzip \
-  && docker-php-ext-install -j$(nproc) \
-    intl
 
-RUN composer install ${COMPOSER_INSTALL_ARGS}
+# copy everything except src/ and tests/
+COPY bin ./bin
+COPY composer.json ./composer.json
+COPY phpunit.xml.dist ./phpunit.xml.dist
 
+# setup the os prior to test
+RUN if test -f "bin/init-for-test.sh"; then ./bin/init-for-test.sh; fi
+
+# pull in plugins required for testing this plugin
 RUN composer require cakephp/app:~4.1 cakephp/debug_kit phpunit/phpunit:^8.5
 
-RUN cp -R vendor/cakephp/app/bin .
-RUN cp -R vendor/cakephp/app/config .
-RUN cp config/app_local.example.php config/app_local.php
+# copy cake app fundamentals up to the plugin's root dir as if it were a real app
+RUN cp -R vendor/cakephp/app/bin . \
+    && cp -R vendor/cakephp/app/config . \
+    && cp config/app_local.example.php config/app_local.php
 
-RUN bin/cake
+# copy in src/ and tests/ late to leverage as much layer cache as possible
+COPY src ./src
+COPY tests ./tests
 
+# run tests
 RUN vendor/bin/phpunit
-
-
-# Build final image
-# ARG BASE_IMAGE_TAG=7.2-apache
-FROM php:${BASE_IMAGE_TAG} AS app-test-stage
-
-LABEL maintainer="mike.tallroth@plexus.com"
-
-ENV APP_ROOT_DIR=/var/www/html/experiment
-
-WORKDIR ${APP_ROOT_DIR}
-
-COPY --from=composer-install-stage ${APP_ROOT_DIR} ./
-
