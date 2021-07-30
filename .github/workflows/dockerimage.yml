@@ -2,7 +2,8 @@ name: Docker Image Test Suite
 
 on:
   push:
-    branches: [*]
+    branches:
+      - '*'
 
 jobs:
   build:
