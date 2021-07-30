@@ -20,7 +20,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "PlexusCorp\\Tests\\": "tests/"
+            "PlexusCorp\\Test\\": "tests/"
         }
     },
     "minimum-stability": "dev"
