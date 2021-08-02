@@ -1,6 +1,6 @@
 <?php
 
-namespace PlexusCorp\Test\TestCase\Lib;
+namespace PlexusCorp\Experiment\Test\TestCase\Lib;
 
 use PlexusCorp\Experiment\Lib\Experiment;
 use Cake\TestSuite\TestCase;
