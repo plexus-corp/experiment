@@ -1,7 +1,7 @@
 # Start test build with image containing composer
 FROM plexuscorp/phpunit-composer:latest AS test
 
-WORKDIR /var/www/html/experiment
+WORKDIR /var/www/html
 
 # copy everything except src/ and tests/
 COPY bin ./bin
